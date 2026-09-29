@@ -8,7 +8,7 @@
 
 旧 AI-Control-Center の ChatGPT/Codex 前提の設計（Control Tower による GitHub PR 中継レビュー、
 Codex CLI ランナー、Codex 前提のオーケストレーション）を取り除き、Claude Code だけで
-「作業カード → 実装 → 独立確認 → 受入」が完結する構成へ作り直す。
+「実装 → 確認 → チャットでの人間の受入」が完結する構成へ作り直す。
 
 今回の段階は「機能面のコード移行の完了」までとする。
 旧 ACC-GUARD（作業カード＋フック）は 2026-09-29 に人間の判断で撤去した（`legacy/acc-guard/`）。
@@ -53,7 +53,8 @@ Codex CLI ランナー、Codex 前提のオーケストレーション）を取�
 
 1. **安全装置の再設計（判断済み・一部実施）**: `docs/design/SAFETY_REDESIGN.md` 9章。
    旧 ACC-GUARD の撤去と、新しいガードレール設定は済んだ。
-   残りは GitHub のブランチ保護（人間が設定）と、次のセッションでのガードレール動作確認。
-2. **作業カード運用の前提見直し**: 「人間が別端末でカードを有効化する」前提は単一シェル環境では成立しない。
-3. **残存する Codex 期の文書**: `docs/WORKING_RULES.md` ほか `docs/` 配下には旧運用の記述が残る。
-   `WORKING_RULES.md` はフックで保護されているため、改訂は人間の判断で行う。
+   ブランチ保護は使わない（人間の判断）。残りは次のセッションでのガードレール動作確認と、暫定スタブの削除。
+2. **作業カード運用**: 廃止した。承認はチャットで行う（`docs/WORKING_RULES.md` 2章）。
+3. **Codex 期の文書**: `docs/WORKING_RULES.md` は 2026-09-29 に Claude 向けに書き直した（旧版は `legacy/docs/WORKING_RULES.codex-era.md`）。
+   ほかの `docs/`・`prompts/`・`AGENTS.md` にも旧運用の記述が残る。これらは WORKING_RULES 1章により、食い違う限りで無効。
+   整理するかどうかは人間の判断による。

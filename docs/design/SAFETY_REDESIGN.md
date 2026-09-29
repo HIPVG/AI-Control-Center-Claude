@@ -234,3 +234,12 @@ T4（外部への不可逆作用）は、機械で完全には防げない。
 - 同日、ローカルで `git switch main` を実行した際、撤去前の main（7637b37）に戻った。これにより旧 ACC-GUARD が一時的に復活した。
   - 撤去済みの状態（171e234）へ fast-forward するため、同じ方法（カード `WC-ACC-REMOVE-20260929-002` の有効化）を1回使った。
   - カードは `legacy/acc-guard/work-cards/` に保管した。
+
+## 11. D3 の最終判断（2026-09-29 12:11 JST）
+
+人間の判断により、**GitHub のブランチ保護は使わない**。
+
+- force push、削除、`reset --hard` などの禁止を担うのは、`.claude/settings.json` の deny と `docs/WORKING_RULES.md` 3章だけになる。
+  - deny は書き方次第ですり抜けられる。したがって、これらは規則として守る扱いとする。
+- `docs/WORKING_RULES.md` は、同日 Claude 向けに書き直した。本設計の運用規則は、同文書を正本とする。
+- 9章「残作業」のうち、1（ブランチ保護）は取り下げる。
