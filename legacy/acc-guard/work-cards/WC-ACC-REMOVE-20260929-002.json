@@ -1,0 +1,54 @@
+{
+  "card_id": "WC-ACC-REMOVE-20260929-002",
+  "status": "DRAFT",
+  "tier": "lightweight",
+  "modules": [],
+  "governance_record": "",
+  "purpose": {
+    "user_value": "撤去済みの状態（origin/main 171e234）に作業フォルダを戻す",
+    "goal": "ローカル main を origin/main へ fast-forward する",
+    "non_goals": ["push", "ファイル内容の変更"],
+    "observable_result": "git status が main...origin/main で差分なし"
+  },
+  "target_and_current_state": {
+    "targets": ["ローカル main ブランチ"],
+    "out_of_scope": ["リモートの全ブランチ"],
+    "baseline_commit": "171e234",
+    "current_state_checked": "OBSERVED: git switch main でローカル main (7637b37) に戻り、旧 ACC-GUARD 本体が復活して操作を拒否"
+  },
+  "decision_owner": {
+    "name": "hirose（2026-09-29 チャットで D4 撤去と撤去方法を承認、12:06 に main で作業する方針を決定）",
+    "same_person_accepts": true,
+    "governance_not_needed_because": "承認済みの撤去状態に戻すだけで、リモートは変更しない"
+  },
+  "permissions_and_cost": {
+    "allowed_operations": ["git merge --ff-only origin/main"],
+    "forbidden_operations": ["push", "リモートの変更"],
+    "cost": "費用なし"
+  },
+  "actors_and_authority": {
+    "actors": ["Claude（実施）", "hirose（チャットで承認）"],
+    "authority": "チャットでの撤去承認の範囲内"
+  },
+  "verification_and_evidence": {
+    "method": "git status と git log で main が origin/main と一致することを確認",
+    "evidence_location": "チャットでの作業報告"
+  },
+  "stop_and_recovery": {
+    "stop_conditions": ["fast-forward できない場合"],
+    "recovery": "操作前の状態はリモートと git reflog に残る"
+  },
+  "result_and_open_items": {},
+  "scope": {
+    "allowed_paths": ["work-cards/drafts/**"],
+    "forbidden_paths": [],
+    "allowed_commands": ["git merge --ff-only origin/main", "git status"]
+  },
+  "budget": {
+    "deadline_utc": "2026-09-29T12:00:00Z",
+    "max_tool_calls": 5
+  },
+  "acceptance": [
+    {"id": "A1", "criterion": "main が origin/main と一致", "command": "git status", "check": "self"}
+  ]
+}

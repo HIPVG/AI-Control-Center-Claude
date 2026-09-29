@@ -32,20 +32,22 @@ Codex CLI ランナー、Codex 前提のオーケストレーション）を取�
 | A2 | `backend/` 配下の全モジュールが import できる | `pkgutil.walk_packages` で全件 import し失敗0件 |
 | A3 | `config/tasks.yaml` と `config/tasks.example.yaml` が新しいキーで読み込める | `load_task_registry()` で読み込み、各タスクの `requires_implementation` を確認 |
 | A4 | pytest（`legacy/` 除く）が全件合格 | `python -m pytest --ignore=legacy -q` |
-| A5 | 変更がチャットでの承認後に `redesign` ブランチへ push されている（main へは反映しない） | `git ls-remote origin redesign` がローカルの HEAD と一致 |
+| A5 | 変更がチャットでの承認後に `main` へ push されている | `git ls-remote origin main` がローカルの HEAD と一致（OBSERVED: 171e234 で達成） |
 
 ## ブランチ運用（2026-09-29 人間の指示）
 
-- Claude での作業は `redesign` ブランチだけで進める。
-- `main` は ChatGPT 側の実装が進むブランチである。Claude は `main` への push・マージ・PR 作成を行わない。
-- `main` の変更を `redesign` に取り込む（merge / rebase）ことも、人間の指示がある場合に限る。
+- このリポジトリ（`HIPVG/AI-Control-Center-Claude`）では、Claude は `main` で直接作業する。
+- 当初「main は ChatGPT 側のブランチ」としていたのは、旧リポジトリ `HIPVG/AI-Control-Center` との取り違えだった。
+  人間の確認により訂正した（2026-09-29 12:04〜12:06 JST）。
+- `redesign` は 171e234 で main に fast-forward 反映済み。記録として残し、以後は使わない。
+- push は、その都度チャットで人間の承認を得てから行う。
 
 ## 停止条件
 
 - 現役コードが `legacy/` のモジュールを必要とすると判明した場合 → 戻すか置き換えるかを人間に確認する（今回の tasks.py の再発防止）。
 - 同じ失敗分類で2回修正して再発した場合 → 3回目の小修正をせず、設計又は人間判断へ戻す。
 - `.claude/settings.json` の deny / ask に掛かった場合 → 回避せず理由を報告する。
-- `main` への反映又は `main` の取り込み、履歴の書き換え、`.claude/` 設定・フック・受入テストの変更 → 人間の明示的な指示なしには行わない。
+- push、履歴の書き換え、`.claude/` 設定・フック・受入テストの変更 → 人間の明示的な指示なしには行わない。
 
 ## 次の段階（未着手・この段階の範囲外）
 

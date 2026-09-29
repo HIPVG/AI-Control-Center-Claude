@@ -219,3 +219,18 @@ T4（外部への不可逆作用）は、機械で完全には防げない。
    - `.claude/` の編集で確認が出ること
 3. 暫定スタブ `.claude/hooks/acc_guard.py` を削除する。
 4. `docs/WORKING_RULES.md`（Codex 期）の改訂又は legacy/ への移動を、人間が判断する。
+
+## 10. 訂正（2026-09-29 12:04〜12:06 JST）：main の扱い
+
+「main は ChatGPT 側のブランチ」という前提は、旧リポジトリ `HIPVG/AI-Control-Center` との取り違えだった。
+このリポジトリ `HIPVG/AI-Control-Center-Claude` の main は、Claude の作業ブランチである。人間の確認により訂正した。
+
+- `redesign`（171e234）を main へ fast-forward で反映した。以後は main で直接作業する。
+- `settings.json` から、main への push 禁止と main の取り込み禁止を外した。
+  - 残した deny：force push、ブランチ削除、`reset --hard`、`clean`、`branch -D`。
+  - `git push` は引き続き ask（確認）とする。
+- D3（ブランチ保護）の目的は「main の隔離」から「**main の保護**」に変わる。
+  - 残す推奨は、main の force push 禁止と削除禁止である。人間の設定を待つ。
+- 同日、ローカルで `git switch main` を実行した際、撤去前の main（7637b37）に戻った。これにより旧 ACC-GUARD が一時的に復活した。
+  - 撤去済みの状態（171e234）へ fast-forward するため、同じ方法（カード `WC-ACC-REMOVE-20260929-002` の有効化）を1回使った。
+  - カードは `legacy/acc-guard/work-cards/` に保管した。
