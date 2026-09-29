@@ -1,24 +1,20 @@
 {
   "permissions": {
     "allow": ["Read", "Grep", "Glob"],
+    "ask": [
+      "Bash(git push:*)",
+      "Edit(./.claude/**)", "Write(./.claude/**)",
+      "Edit(./docs/WORKING_RULES.md)", "Write(./docs/WORKING_RULES.md)",
+      "Edit(./tests/acceptance/**)", "Write(./tests/acceptance/**)"
+    ],
     "deny": [
       "Read(./.env)", "Read(./secrets/**)",
-      "Edit(./.claude/**)", "Write(./.claude/**)",
-      "Edit(./.acc/**)", "Write(./.acc/**)",
-      "Edit(./tests/acceptance/**)", "Write(./tests/acceptance/**)",
-      "Edit(./docs/WORKING_RULES.md)", "Write(./docs/WORKING_RULES.md)",
-      "Bash(git push:*)", "Bash(git reset:*)", "Bash(git clean:*)", "Bash(git stash:*)",
-      "Bash(git checkout:*)", "Bash(git restore:*)", "Bash(rm:*)", "Bash(del:*)",
-      "Bash(icacls:*)", "Bash(pip install:*)", "Bash(curl:*)", "Bash(python tools/acc.py:*)",
-      "WebFetch"
-    ]
-  },
-  "hooks": {
-    "PreToolUse": [
-      {
-        "matcher": "Write|Edit|MultiEdit|NotebookEdit|Bash",
-        "hooks": [{ "type": "command", "command": "python .claude/hooks/acc_guard.py" }]
-      }
+      "Bash(git push origin main:*)", "Bash(git push origin HEAD:main:*)",
+      "Bash(git push --force:*)", "Bash(git push -f:*)", "Bash(git push --force-with-lease:*)",
+      "Bash(git push --delete:*)", "Bash(git push origin --delete:*)",
+      "Bash(git reset --hard:*)", "Bash(git clean:*)", "Bash(git branch -D:*)",
+      "Bash(git merge main:*)", "Bash(git merge origin/main:*)",
+      "Bash(git rebase main:*)", "Bash(git rebase origin/main:*)"
     ]
   }
 }

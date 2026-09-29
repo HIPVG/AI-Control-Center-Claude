@@ -10,8 +10,9 @@
 Codex CLI ランナー、Codex 前提のオーケストレーション）を取り除き、Claude Code だけで
 「作業カード → 実装 → 独立確認 → 受入」が完結する構成へ作り直す。
 
-今回の段階は「機能面のコード移行の完了」までとする。ACC-GUARD（作業カード＋フック）の
-本番適用は、この段階の完了後に別段階として扱う（理由は下記「既知の問題」）。
+今回の段階は「機能面のコード移行の完了」までとする。
+旧 ACC-GUARD（作業カード＋フック）は 2026-09-29 に人間の判断で撤去した（`legacy/acc-guard/`）。
+承認・受入・push の承認は、チャットで人間が行う（`CLAUDE.md`、`docs/design/SAFETY_REDESIGN.md`）。
 
 ## 現在の到達点
 
@@ -31,7 +32,7 @@ Codex CLI ランナー、Codex 前提のオーケストレーション）を取�
 | A2 | `backend/` 配下の全モジュールが import できる | `pkgutil.walk_packages` で全件 import し失敗0件 |
 | A3 | `config/tasks.yaml` と `config/tasks.example.yaml` が新しいキーで読み込める | `load_task_registry()` で読み込み、各タスクの `requires_implementation` を確認 |
 | A4 | pytest（`legacy/` 除く）が全件合格 | `python -m pytest --ignore=legacy -q` |
-| A5 | 変更が `redesign` ブランチに push されている（main へは反映しない） | `git ls-remote origin redesign` がローカルの HEAD と一致 |
+| A5 | 変更がチャットでの承認後に `redesign` ブランチへ push されている（main へは反映しない） | `git ls-remote origin redesign` がローカルの HEAD と一致 |
 
 ## ブランチ運用（2026-09-29 人間の指示）
 
@@ -43,14 +44,14 @@ Codex CLI ランナー、Codex 前提のオーケストレーション）を取�
 
 - 現役コードが `legacy/` のモジュールを必要とすると判明した場合 → 戻すか置き換えるかを人間に確認する（今回の tasks.py の再発防止）。
 - 同じ失敗分類で2回修正して再発した場合 → 3回目の小修正をせず、設計又は人間判断へ戻す。
-- ACC-GUARD の拒否を受けた場合 → 回避せず理由を報告して止まる。
+- `.claude/settings.json` の deny / ask に掛かった場合 → 回避せず理由を報告する。
 - `main` への反映又は `main` の取り込み、履歴の書き換え、`.claude/` 設定・フック・受入テストの変更 → 人間の明示的な指示なしには行わない。
 
 ## 次の段階（未着手・この段階の範囲外）
 
-1. **安全装置の再設計（提案済み・人間の判断待ち）**: `docs/design/SAFETY_REDESIGN.md`。
-   バグ2の原因はフックの相対パス起動と作業ルート外の一律拒否と特定（OBSERVED）。
-   承認・受入を GitHub 側（ブランチ保護・CI・PR マージ）へ移す案。判断 D1〜D4 を待つ。
+1. **安全装置の再設計（判断済み・一部実施）**: `docs/design/SAFETY_REDESIGN.md` 9章。
+   旧 ACC-GUARD の撤去と、新しいガードレール設定は済んだ。
+   残りは GitHub のブランチ保護（人間が設定）と、次のセッションでのガードレール動作確認。
 2. **作業カード運用の前提見直し**: 「人間が別端末でカードを有効化する」前提は単一シェル環境では成立しない。
 3. **残存する Codex 期の文書**: `docs/WORKING_RULES.md` ほか `docs/` 配下には旧運用の記述が残る。
    `WORKING_RULES.md` はフックで保護されているため、改訂は人間の判断で行う。

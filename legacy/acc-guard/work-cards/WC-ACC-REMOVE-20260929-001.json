@@ -1,0 +1,54 @@
+{
+  "card_id": "WC-ACC-REMOVE-20260929-001",
+  "status": "DRAFT",
+  "tier": "lightweight",
+  "modules": [],
+  "governance_record": "",
+  "purpose": {
+    "user_value": "役に立っていない旧 ACC-GUARD を撤去し、チャット承認ベースの運用に移れる",
+    "goal": "フックを素通しスタブに差し替え、.claude/settings.json を新しいガードレール設定に置き換える",
+    "non_goals": ["コード本体の変更", "main への操作", "push（別途チャット承認）"],
+    "observable_result": "以後の Bash / Edit が ACC-GUARD に拒否されない"
+  },
+  "target_and_current_state": {
+    "targets": [".claude/hooks/acc_guard.py", ".claude/settings.json"],
+    "out_of_scope": ["backend/**", "config/**", "main ブランチ"],
+    "baseline_commit": "dc4d2d9",
+    "current_state_checked": "OBSERVED: 有効カードなしのため、単純な git -C status も ACC-GUARD に拒否される"
+  },
+  "decision_owner": {
+    "name": "hirose (2026-09-29 11:52 JST チャットで D4『今すぐ廃棄でも良い』、撤去方法を選択肢で承認)",
+    "same_person_accepts": true,
+    "governance_not_needed_because": "人間がチャットで明示的に撤去を決定済み。git で元に戻せる"
+  },
+  "permissions_and_cost": {
+    "allowed_operations": ["work-cards/drafts への一時ファイル作成", "python3 -c による2ファイルの上書き"],
+    "forbidden_operations": ["push", "main への操作", "上記2ファイル以外の上書き"],
+    "cost": "費用なし"
+  },
+  "actors_and_authority": {
+    "actors": ["Claude（実施）", "hirose（チャットで承認・受入）"],
+    "authority": "チャットでの人間の明示承認（D4 と撤去方法の選択）"
+  },
+  "verification_and_evidence": {
+    "method": "差し替え後に git status / git diff が拒否されずに実行できることを確認する",
+    "evidence_location": "チャットでの作業報告"
+  },
+  "stop_and_recovery": {
+    "stop_conditions": ["想定外の拒否", "対象2ファイル以外の変更が必要になった場合"],
+    "recovery": "git の直前コミット dc4d2d9 から2ファイルを戻す"
+  },
+  "result_and_open_items": {},
+  "scope": {
+    "allowed_paths": ["work-cards/drafts/**"],
+    "forbidden_paths": [],
+    "allowed_commands": ["python3 -c", "git status", "git diff"]
+  },
+  "budget": {
+    "deadline_utc": "2026-09-29T12:00:00Z",
+    "max_tool_calls": 10
+  },
+  "acceptance": [
+    {"id": "A1", "criterion": "ACC-GUARD が以後の操作を拒否しない", "command": "git status", "check": "self"}
+  ]
+}
