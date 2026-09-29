@@ -130,7 +130,8 @@ ChatGPT/Codex 期の版は `legacy/docs/WORKING_RULES.codex-era.md` に保管し
 
 - `.claude/settings.json`：事故防止のガードレールであり、権限の境界ではない。
   - deny：force push、ブランチ削除、`reset --hard`、`clean`、秘密情報の読み取り。
-  - ask（人間の確認）：`git push`、`.claude/`・`tests/acceptance/`・この文書の編集。
+  - ask（人間の確認）：`.claude/`・`tests/acceptance/`・この文書の編集。
+  - `git push` は ask にしない。push の承認はチャットだけで行う（2026-09-29 人間の判断）。
   - 拒否や確認が出たら回避せず、理由を報告する。
 - この文書・`.claude/settings.json`・受入テストを変えるときは、事前にチャットで人間の承認を得る。
 - 設計と経緯は `docs/design/SAFETY_REDESIGN.md` にある。

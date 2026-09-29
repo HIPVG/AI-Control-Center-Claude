@@ -2,7 +2,6 @@
   "permissions": {
     "allow": ["Read", "Grep", "Glob"],
     "ask": [
-      "Bash(git push:*)",
       "Edit(./.claude/**)", "Write(./.claude/**)",
       "Edit(./docs/WORKING_RULES.md)", "Write(./docs/WORKING_RULES.md)",
       "Edit(./tests/acceptance/**)", "Write(./tests/acceptance/**)"
