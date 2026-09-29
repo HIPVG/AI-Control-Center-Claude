@@ -31,14 +31,20 @@ Codex CLI ランナー、Codex 前提のオーケストレーション）を取�
 | A2 | `backend/` 配下の全モジュールが import できる | `pkgutil.walk_packages` で全件 import し失敗0件 |
 | A3 | `config/tasks.yaml` と `config/tasks.example.yaml` が新しいキーで読み込める | `load_task_registry()` で読み込み、各タスクの `requires_implementation` を確認 |
 | A4 | pytest（`legacy/` 除く）が全件合格 | `python -m pytest --ignore=legacy -q` |
-| A5 | 変更が main に反映されている | `git log origin/main` |
+| A5 | 変更が `redesign` ブランチに push されている（main へは反映しない） | `git ls-remote origin redesign` がローカルの HEAD と一致 |
+
+## ブランチ運用（2026-09-29 人間の指示）
+
+- Claude での作業は `redesign` ブランチだけで進める。
+- `main` は ChatGPT 側の実装が進むブランチである。Claude は `main` への push・マージ・PR 作成を行わない。
+- `main` の変更を `redesign` に取り込む（merge / rebase）ことも、人間の指示がある場合に限る。
 
 ## 停止条件
 
 - 現役コードが `legacy/` のモジュールを必要とすると判明した場合 → 戻すか置き換えるかを人間に確認する（今回の tasks.py の再発防止）。
 - 同じ失敗分類で2回修正して再発した場合 → 3回目の小修正をせず、設計又は人間判断へ戻す。
 - ACC-GUARD の拒否を受けた場合 → 回避せず理由を報告して止まる。
-- main への反映、履歴の書き換え、`.claude/` 設定・フック・受入テストの変更 → 人間の明示的な指示なしには行わない。
+- `main` への反映又は `main` の取り込み、履歴の書き換え、`.claude/` 設定・フック・受入テストの変更 → 人間の明示的な指示なしには行わない。
 
 ## 次の段階（未着手・この段階の範囲外）
 
