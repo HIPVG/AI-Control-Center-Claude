@@ -15,5 +15,5 @@ class MockArchitect:
             task_type="code_fix",
             allowed_files=["src/evaluator.py"],
             acceptance_tests=["pytest tests/test_pc014.py"],
-            needs_codex=True,
+            requires_implementation=True,
         )

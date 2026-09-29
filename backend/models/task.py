@@ -18,7 +18,7 @@ class WorkOrder(BaseModel):
     allowed_files: list[str] = Field(min_length=1)
     acceptance_tests: list[str] = Field(min_length=1)
     max_retry: int = Field(default=2, ge=0, le=20)
-    needs_codex: bool = False
+    requires_implementation: bool = False
 
     @field_validator("allowed_files")
     @classmethod

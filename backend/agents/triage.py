@@ -10,4 +10,4 @@ class TriageDecision(str, Enum):
 
 class MockTriage:
     def classify(self, work_order: WorkOrder) -> TriageDecision:
-        return TriageDecision.CODE_FIX if work_order.task_type == TaskType.CODE_FIX and work_order.needs_codex else TriageDecision.HUMAN_REVIEW
+        return TriageDecision.CODE_FIX if work_order.task_type == TaskType.CODE_FIX and work_order.requires_implementation else TriageDecision.HUMAN_REVIEW

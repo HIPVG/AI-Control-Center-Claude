@@ -344,7 +344,7 @@ class RepairEpisode(BaseModel):
     catalog_match_ids: list[str] = Field(default_factory=list, max_length=10)
     proposal_attempts: list[RepairProposalAttempt] = Field(default_factory=list, max_length=3)
     rejection_feedback: list[str] = Field(default_factory=list, max_length=3)
-    codex_review_outcome: str | None = Field(default=None, max_length=80)
+    implementer_review_outcome: str | None = Field(default=None, max_length=80)
     expert_solver_outcome: str | None = Field(default=None, max_length=80)
     verification_result: str | None = Field(default=None, max_length=80)
     final_outcome: str | None = Field(default=None, max_length=80)
@@ -376,7 +376,7 @@ class LocalLLMDaySnapshot(BaseModel):
     repair_attempted: bool = False
     repair_knowledge: list[LocalLLMRepairCard] = Field(default_factory=list, max_length=30)
     repair_episode_ids: list[str] = Field(default_factory=list, max_length=30)
-    codex_handoff: dict[str, object] | None = None
+    implementer_handoff: dict[str, object] | None = None
     issue_classification: DayIssueClassification | None = None
     gap_diagnoses: list[GapDiagnosis] = Field(default_factory=list, max_length=20)
     evidence_store: dict[str, EvidenceRecord] = Field(default_factory=dict, max_length=300)

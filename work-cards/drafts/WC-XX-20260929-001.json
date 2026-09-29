@@ -1,0 +1,56 @@
+{
+  "card_id": "WC-XX-20260929-001",
+  "status": "DRAFT",
+  "tier": "lightweight",
+  "modules": [],
+  "governance_record": "",
+  "purpose": {
+    "user_value": "作業カード→実装→受入の流れと ACC-GUARD が正常に動くことを、影響のない最小変更で確認できる",
+    "goal": "backend/app.py の動作確認用に、コメントを1行追加する",
+    "non_goals": ["コードの挙動変更", "backend/app.py 以外の変更", "設定・hook・受入テストの変更", "commit/push"],
+    "observable_result": "git diff で backend/app.py にコメント1行の追加のみが表示される"
+  },
+  "target_and_current_state": {
+    "targets": ["backend/app.py"],
+    "out_of_scope": ["backend/app.py 以外の全ファイル"],
+    "baseline_commit": "46ccaa8",
+    "current_state_checked": "OBSERVED: backend/app.py は存在し、FastAPI アプリ定義（import、ROOT、engine 等の初期化）を含む。work-cards/approved/ に ACTIVE カードなし。"
+  },
+  "decision_owner": {
+    "name": "",
+    "same_person_accepts": true,
+    "governance_not_needed_because": "コメント1行のみで挙動に影響せず、git で即時に戻せるため"
+  },
+  "permissions_and_cost": {
+    "allowed_operations": ["backend/app.py の読み取り", "backend/app.py へのコメント1行追加"],
+    "forbidden_operations": ["コメント以外のコード変更", "他ファイルの編集", "commit/push", "外部送信"],
+    "cost": "費用なし"
+  },
+  "actors_and_authority": {
+    "actors": ["Claude（実装）", "人間（承認・受入）"],
+    "authority": "人間が本カードを work-cards/approved/ へ移動し ACTIVE にした時点で着手可"
+  },
+  "verification_and_evidence": {
+    "method": "git diff backend/app.py で追加行がコメント1行のみであることを確認し、python -m py_compile backend/app.py で構文エラーがないことを確認する",
+    "evidence_location": "git diff の出力と py_compile の終了コード（作業報告に添付）"
+  },
+  "stop_and_recovery": {
+    "stop_conditions": ["backend/app.py 以外の変更が必要になった場合", "ACC-GUARD BLOCKED を受けた場合", "py_compile が失敗した場合"],
+    "recovery": "git checkout -- backend/app.py"
+  },
+  "result_and_open_items": {},
+  "scope": {
+    "allowed_paths": ["backend/app.py"],
+    "forbidden_paths": [],
+    "allowed_commands": ["python -m py_compile backend/app.py", "python -m pytest", "git status", "git diff"]
+  },
+  "budget": {
+    "deadline_utc": "2026-09-30T00:00:00Z",
+    "max_tool_calls": 20
+  },
+  "acceptance": [
+    {"id": "A1", "criterion": "backend/app.py の差分がコメント1行の追加のみである", "command": "git diff --numstat backend/app.py", "check": "self"},
+    {"id": "A2", "criterion": "backend/app.py が構文エラーなくコンパイルできる", "command": "python -m py_compile backend/app.py", "check": "self"},
+    {"id": "A3", "criterion": "既存の受入テストが壊れていない", "command": "python -m pytest tests/acceptance -q", "check": "self"}
+  ]
+}

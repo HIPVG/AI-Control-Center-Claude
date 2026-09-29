@@ -1,0 +1,54 @@
+{
+  "card_id": "WC-XX-YYYYMMDD-001",
+  "status": "DRAFT",
+  "tier": "lightweight",
+  "modules": [],
+  "governance_record": "",
+  "purpose": {
+    "user_value": "",
+    "goal": "",
+    "non_goals": [""],
+    "observable_result": ""
+  },
+  "target_and_current_state": {
+    "targets": [""],
+    "out_of_scope": [""],
+    "baseline_commit": "",
+    "current_state_checked": ""
+  },
+  "decision_owner": {
+    "name": "",
+    "same_person_accepts": true,
+    "governance_not_needed_because": ""
+  },
+  "permissions_and_cost": {
+    "allowed_operations": [""],
+    "forbidden_operations": [""],
+    "cost": "費用なし"
+  },
+  "actors_and_authority": {
+    "actors": [""],
+    "authority": ""
+  },
+  "verification_and_evidence": {
+    "method": "",
+    "evidence_location": ""
+  },
+  "stop_and_recovery": {
+    "stop_conditions": [""],
+    "recovery": ""
+  },
+  "result_and_open_items": {},
+  "scope": {
+    "allowed_paths": ["src/**"],
+    "forbidden_paths": [],
+    "allowed_commands": ["python -m pytest", "git status", "git diff"]
+  },
+  "budget": {
+    "deadline_utc": "2026-09-30T00:00:00Z",
+    "max_tool_calls": 60
+  },
+  "acceptance": [
+    {"id": "A1", "criterion": "", "command": "python -m pytest tests/acceptance -q", "check": "self"}
+  ]
+}
