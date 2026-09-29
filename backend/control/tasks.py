@@ -37,7 +37,7 @@ class ConfiguredTask(BaseModel):
     allowed_files: list[str] = Field(min_length=1)
     context_files: list[str] = Field(min_length=1)
     max_retry: int = Field(default=1, ge=0, le=20)
-    requires_codex: bool = True
+    requires_implementation: bool = True
     evaluator_type: Literal["deterministic", "semantic"] = "deterministic"
     independent_evaluator_required: bool = False
     evaluation_metrics: list[str] = Field(default_factory=list)

@@ -12,5 +12,5 @@ tasks:
     allowed_files: [scripts/check.py]
     context_files: [scripts/check.py]
     max_retry: 1
-    requires_codex: true
+    requires_implementation: true
     evaluator_type: deterministic

@@ -30,7 +30,7 @@ tasks:
       - scripts/run_process_consistency_smoke.py
       - scripts/process_consistency.py
     max_retry: 1
-    requires_codex: true
+    requires_implementation: true
     evaluator_type: deterministic
     context_max_characters: 30000
   PC-001-C:
@@ -46,7 +46,7 @@ tasks:
     allowed_files: [scripts/run_process_consistency_smoke.py, scripts/process_consistency.py]
     context_files: [scripts/run_process_consistency_smoke.py, scripts/process_consistency.py]
     max_retry: 1
-    requires_codex: true
+    requires_implementation: true
     evaluator_type: deterministic
     context_max_characters: 30000
   PC-002-A:
@@ -62,6 +62,6 @@ tasks:
     allowed_files: [scripts/run_process_consistency_smoke.py, scripts/process_consistency.py]
     context_files: [scripts/run_process_consistency_smoke.py, scripts/process_consistency.py]
     max_retry: 1
-    requires_codex: true
+    requires_implementation: true
     evaluator_type: deterministic
     context_max_characters: 30000
